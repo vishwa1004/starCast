@@ -122,7 +122,10 @@ export class ApiService {
 
       // Let the app keep running by returning an empty result.
       if (error.status === 401) {
-
+        this.toastService.displayMessage('Session out please Login once', 'danger');
+        this.router.navigateByUrl('/login');
+          this.user.deleteUser();
+         
       } else {
 
       }
