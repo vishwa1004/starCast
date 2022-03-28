@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
     type: "email",
     label: 'LABELS.EMAIL',
     required: true,
-    name: 'email',
+    name: 'userName',
     value: '',
     pattern:/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
     patternError:'LABELS.EMAIL_VALIDATION',

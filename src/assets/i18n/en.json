@@ -21,6 +21,13 @@
         "PROFILE":"Profile",
         "DASHBOARD":"Dashboard",
         "CREATE_YOUR_ACCOUNT":"Create your Account",
-        "LOGIN_TO_ACCOUNT":"Login to your Account"
+        "LOGIN_TO_ACCOUNT":"Login to your Account",
+        "LANGUAGE":"Languages",
+        "SPECIALIST_IN":"Specialist in",
+        "MOVIES_WORKED_ON":"Movies worked on",
+        "SERIALS_WORKED_ON":"Serials worked on",
+        "VIDEOS":"Videos",
+        "SOCIAL_LINKS":"Social links",
+        "SUBMIT":"Submit"
     }
 }
