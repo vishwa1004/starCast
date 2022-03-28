@@ -1,0 +1,22 @@
+<ion-menu side="start" contentId="content">
+    <ion-header>
+      <ion-toolbar  style="--ion-background-color: var(--tab-color); color:#fff;">
+        <ion-title> <img src="assets/images/icon.png" class="menu-img"><span class="menu-title"> App name</span></ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content style="--ion-background-color: var(--tab-color);">
+      <ion-list style="background:var(--tab-color)">
+        <ion-menu-toggle auto-hide="false" *ngFor="let pages of navigate">
+          <ion-item (click)="navigateTo(pages.url)" style="background:var(--tab-color)">
+            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+            {{pages.title | translate}}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-header>
+    <app-header title="Home"></app-header>
+  </ion-header>
+  
+  <ion-router-outlet id="content" main></ion-router-outlet>

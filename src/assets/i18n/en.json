@@ -1,0 +1,26 @@
+{
+    "LABELS": {
+        "MOBILE_NUMBER_VALIDATION": "Please enter valid mobile number",
+        "MOBILE_NUMBER_REQUIRED": "Mobile number is required",
+        "NAME_VALIDATION": "Please enter valid Name",
+        "NAME_REQUIRED": "Name is required",
+        "EMAIL_VALIDATION": "Please enter valid Email",
+        "EMAIL_REQUIRED": "Email id is required",
+        "PASSWORD_REQUIRED": "Password is required",
+        "MOBILE_NUMBER":"Mobile number",
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "POSTINGS":"Postings",
+        "CAST":"Cast",
+        "PASSWORD":"Password",
+        "LOGIN":"Sign in",
+        "SIGNUP":"Sign up",
+        "ALREADY_HAVE_ACCOUNT":"Already have an account ? Login here",
+        "DONT_HAVE_ACCOUNT":"Don't have an account ?",
+        "SIGNUP_HERE":" Signup here",
+        "PROFILE":"Profile",
+        "DASHBOARD":"Dashboard",
+        "CREATE_YOUR_ACCOUNT":"Create your Account",
+        "LOGIN_TO_ACCOUNT":"Login to your Account"
+    }
+}

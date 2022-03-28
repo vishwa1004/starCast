@@ -1,0 +1,66 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+    --white:#fff;
+    --black:#000;
+    --gray:#ccc;
+    --light-gray:#f4f2f2;
+    --dark-gray:#6a6a6a;
+    --yellow:#ffab00;
+    --quill-grey:#cac7c1;
+    --grey-shade:#686762;
+    --grey-medium:#4a4f57;
+    --lime-blue:#296f8e;
+    --bg-color:#fff;
+    --tab-color:#1f319d;
+    --btn-color:#1f319d;
+    --card-item:#1c3150;
+  }
+  
+  ion-content{
+    --ion-background-color:var(--bg-color);
+}
+.custom-button{
+  div{
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  padding: 15px 0px;
+  background: var(--btn-color);
+  }
+}
+.link-color{
+color:var(--btn-color);
+}
+.footer-txt{
+  padding: 15px;
+}
+.btn-height{
+  height: 4em;
+  text-transform: none;
+}

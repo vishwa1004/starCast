@@ -1,0 +1,42 @@
+<ion-header>
+  <app-header title="LABELS.PROFILE" [showMenu]="true" [showEdit]="true" (onAction)="profileAction($event)">
+    <ion-back-button></ion-back-button>
+  </app-header>
+</ion-header>
+<ion-content>
+  <div class="profile-img">
+    <div>
+      <img src="assets/images/profile.jpeg">
+    </div>
+    <div class="background-dots">
+    </div>
+  </div>
+  <div class="profile-name-card">
+    {{profile?.name}}
+  </div>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="about">
+      <ion-label>About</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="portfolio">
+      <ion-label>Portfolio</ion-label>
+    </ion-segment-button>
+    <ion-segment-button  value="auditions">
+      <ion-label>Auditions</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="type == 'about'">
+    <div class="display-flex-content">
+      <div class="middle-bar">
+        <div class="ion-padding padding-top" *ngFor="let label of profileMetaData">
+          {{label.label | translate}}
+        </div>
+      </div>
+      <div>
+        <div class="ion-padding" *ngFor="let label of profileMetaData">
+          {{profile[label.key]}}
+        </div>
+      </div>
+    </div>
+    </div>
+</ion-content>

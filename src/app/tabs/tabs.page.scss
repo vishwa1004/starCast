@@ -1,0 +1,12 @@
+
+  ion-tab-bar {
+    --background: var(--tab-color);
+    --color: var(--gray);
+    --color-selected: var(--white);;
+    }
+    
+    ion-tab-button {
+      &.tab-selected::before {
+        --color: var(--white);
+      }
+    }

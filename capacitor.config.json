@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "starcast",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

@@ -1,0 +1,31 @@
+.profile-img{
+    display: flex;
+}
+.profile-name-card{
+    background: var(--btn-color);
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    width: 70%;
+}
+.display-flex-content{
+    display: flex;
+    padding: 5px 0px;
+.middle-bar{
+    border-right: 1px solid;
+    padding-right: 20px;
+    text-align: right;
+}
+}
+.padding-top{
+    padding-top: var(--ion-padding, 8px) !important;
+    padding-bottom: var(--ion-padding, 8px) !important;
+}
+
+.background-dots{
+    background-image: radial-gradient(#b5b5b5 20%, #ffffff 20%);
+    background-position: 0 0;
+    background-size: 10px 10px;
+    height: 140px;
+}
