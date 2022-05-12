@@ -21,12 +21,12 @@
             *ngIf="(field?.required && loginForm.controls[field.name].touched  && loginForm.controls[field.name].errors?.required) ||(field.required && submitAttempt && !field.value) ">
             {{field?.requiredError | translate}}
           </span>
-          <span *ngIf="field.value && field.pattern && !field.patternMatch" class="required-field">
+          <span *ngIf="loginForm.value[field.name] && field.pattern && !field.patternMatch" class="required-field">
             {{field?.patternError | translate}}
           </span>
         </ng-container>
       </div>
-      <ion-button (click)="login()" expand="block" class="btn-height">
+      <ion-button (click)="login()" expand="block" class="btn-height" [disabled]="!loginForm.valid">
         {{"LABELS.LOGIN" | translate}}
         </ion-button>
     </form>

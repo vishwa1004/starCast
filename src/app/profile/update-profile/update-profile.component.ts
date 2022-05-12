@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { LoaderService, urlConstants, UtilsService } from 'src/app/core';
 import { ModalController } from '@ionic/angular';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { CurrentUserService } from 'src/app/core/services/current-user/current-user.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -9,18 +11,40 @@ import { ModalController } from '@ionic/angular';
 })
 export class UpdateProfileComponent implements OnInit {
   fields;
+  @Input() profile;
+  userData;
   constructor(
     private utils: UtilsService,
-    private modal: ModalController
+    private modal: ModalController,
+    private currentUser:CurrentUserService,
+    private api : ApiService,
+    private loader:LoaderService
   ) { }
 
-  ngOnInit() {
-    this.fields = this.utils.getUpdateProfileForm();
-    console.log(this.fields, "this.field");
+  ngOnInit() {}
+  ionViewWillEnter(){
+    this.currentUser.getUser().then(user =>{
+      this.userData = user;
+      this.fields = this.utils.getUpdateProfileForm();
+    })
   }
-
-  eventAction(event) {
-    console.log(event, "event");
+  eventAction() {
+    console.log( "this.profile", this.profile);
+    this.currentUser.getUser().then(user =>{
+      this.userData = user;
+      this.loader.startLoader();
+      const config ={
+        url:urlConstants.API_URLS.UPDATE_PROFILE +this.userData._id,
+        payload: this.profile
+      }
+      this.api.post(config).subscribe(resp =>{
+          this.loader.stopLoader();
+          this.modal.dismiss();
+      },error =>{
+        this.loader.stopLoader();
+      })
+    })
+    
   }
   close() {
     this.modal.dismiss();

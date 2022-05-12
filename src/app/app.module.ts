@@ -16,6 +16,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { Chooser } from '@ionic-native/chooser/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { FormsModule } from '@angular/forms';
 export function HttpLoaderFactory(handler: HttpBackend) {
   const http = new HttpClient(handler);
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(handler: HttpBackend) {
   declarations: [AppComponent,UpdateProfileComponent,GenericFormComponent],
   entryComponents: [UpdateProfileComponent],
   imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule,AppRoutingModule,
+    FormsModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

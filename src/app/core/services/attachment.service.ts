@@ -91,7 +91,6 @@ export class AttachmentService {
             value:imagePath,
             type:'png'
           }
-          console.log(payload,"payload");
           this.actionSheetController.dismiss(payload);
           // return payload
         } else {
@@ -99,12 +98,10 @@ export class AttachmentService {
             value:imagePath,
             type:'png'
           }
-          console.log(payload,"payload");
           this.actionSheetController.dismiss(payload);
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err !== "No Image Selected") {
           this.presentToast("Error While storing");
         }

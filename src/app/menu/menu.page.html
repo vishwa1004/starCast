@@ -1,14 +1,14 @@
 <ion-menu side="start" contentId="content">
     <ion-header>
       <ion-toolbar  style="--ion-background-color: var(--tab-color); color:#fff;">
-        <ion-title> <img src="assets/images/icon.png" class="menu-img"><span class="menu-title"> App name</span></ion-title>
+        <ion-title> <img src="assets/images/icon.png" class="menu-img"><span class="menu-title">Cinema Tent</span></ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content style="--ion-background-color: var(--tab-color);">
       <ion-list style="background:var(--tab-color)">
         <ion-menu-toggle auto-hide="false" *ngFor="let pages of navigate">
           <ion-item (click)="navigateTo(pages.url)" style="background:var(--tab-color)">
-            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+            <ion-icon [name]="pages.icon" slot="start" style="color: #fff;"></ion-icon>
             {{pages.title | translate}}
           </ion-item>
         </ion-menu-toggle>

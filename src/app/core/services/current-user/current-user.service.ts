@@ -11,7 +11,6 @@ export class CurrentUserService {
   setUser(data): Promise<any> {
     return new Promise((resolve, reject) => {
       this.storage.setLocalStorage('userDetails', data).then(success => {
-        console.log(success,"success")
         resolve(data);
       }).catch(error => {
         reject(error)
@@ -47,7 +46,7 @@ export class CurrentUserService {
   deleteUser(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.storage.deleteAllStorage().then(data => {
-        resolve(data)
+        resolve(data);
       }).catch(error => {
         reject()
       })

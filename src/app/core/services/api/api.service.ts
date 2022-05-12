@@ -21,41 +21,36 @@ export class ApiService {
   router: Router;
   token;
   alertController: AlertController
-  constructor(public http: HttpClient,
+   constructor(public http: HttpClient,
     private toastService: ToastServiceService,
     private user: CurrentUserService
   ) { 
-    this.setHeaders();
+    this.token = this.setHeaders();
   }
 
    setHeaders() {
-    return this.user.getToken().then(token => {
-      console.log(token, "token");
+     this.user.getToken().then(token => {
       // const headers = new HttpHeaders().set('Authorization', token.token);
-      this.token  = token;
+     this.token = token;
     })
   }
   get(requestParam: RequestParams): Observable<any> {
-    console.log( this.token, "token")
     this.token =   !this.token ? this.setHeaders() : this.token;
-    const headers = new HttpHeaders().set('x-access-token', this.token);
-    console.log(headers, "headers")
-    return this.http.get(environment.apiBaseUrl + requestParam.url, { headers:headers  }).pipe(
-      tap((data: any) => {
-        this.toastService.displayMessage(data.message, 'success')
-        return data;
-      }, error => {
-        this.toastService.displayMessage(error.error.message, 'danger');
-      }),
-      catchError(this.handleError([]))
-    )
+      const headers = new HttpHeaders().set('x-access-token', this.token);
+      return this.http.get(environment.apiBaseUrl + requestParam.url, { headers:headers  }).pipe(
+        tap((data: any) => {
+          this.toastService.displayMessage(data.message, 'success')
+          return data;
+        }, error => {
+          this.toastService.displayMessage(error.error.message, 'danger');
+        }),
+        catchError(this.handleError([]))
+      )
   }
 
   post(requestParam: RequestParams): Observable<any> {
     // const headers = new HttpHeaders().set('Authorization', this.user.getUserToken());
-    console.log( this.token, "token")
-    const headers = new HttpHeaders().set('Authorization', this.token);
-    console.log(headers, "headers")
+    const headers = new HttpHeaders().set('x-access-token', this.token);
     return this.http.post(environment.apiBaseUrl + requestParam.url, requestParam.payload, { headers: headers }).pipe(
       tap((data: any) => {
         this.toastService.displayMessage(data.message, 'success');
@@ -116,15 +111,14 @@ export class ApiService {
   private handleError(result) {
     return (error: any): Observable<any> => {
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
       // TODO: better job of transforming error for user consumption
       // this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       if (error.status === 401) {
-        this.toastService.displayMessage('Session out please Login once', 'danger');
-        this.router.navigateByUrl('/login');
-          this.user.deleteUser();
+        // this.toastService.displayMessage('Session out please Login once', 'danger');
+        // this.router.navigateByUrl('/login');
+        //   this.user.deleteUser();
          
       } else {
 

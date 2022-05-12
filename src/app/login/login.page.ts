@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { urlConstants } from '../core';
+import { LoaderService, urlConstants } from '../core';
 import { ApiService } from '../core/services/api/api.service';
 import { ModalController } from '@ionic/angular';
 import { SignupPage } from '../signup/signup.page';
 import { CurrentUserService } from '../core/services/current-user/current-user.service';
 import { LocalStorageService } from '../core/services/local-storage/local-storage.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -22,7 +23,7 @@ export class LoginPage implements OnInit {
     required: true,
     name: 'userName',
     value: '',
-    pattern:/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
+    pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     patternError:'LABELS.EMAIL_VALIDATION',
     requiredError:'LABELS.EMAIL_REQUIRED',
     icons: []
@@ -43,7 +44,8 @@ export class LoginPage implements OnInit {
     private apiService :ApiService,
     public modalController: ModalController,
     public user : CurrentUserService,
-    private storage : LocalStorageService
+    private storage : LocalStorageService,
+    private loader :LoaderService
   ) {
     translate.setDefaultLang('en');
     translate.use('en');
@@ -54,13 +56,10 @@ export class LoginPage implements OnInit {
   }
 
   checkPattern(field) {
-    if (field.value && field.pattern) {
-      let result = field.pattern.test(field.value);
+    console.log(field.pattern,"field",this.loginForm.value[field.name]);
+    if (this.loginForm.value[field.name] && field.pattern) {
+      let result = field.pattern.test(this.loginForm.value[field.name]);
       field.patternMatch = result;
-      if (result && field.name == 'mobilenumber') {
-        // this.showOtpInput = true;
-        // this.registeredMObileNumber = field.value;
-      }
     } else {
       // this.showOtpInput = false;
       field.patternMatch = false;
@@ -89,6 +88,7 @@ export class LoginPage implements OnInit {
   }
   login(){
     console.log(this.loginForm.value,"this.loginForm.value");
+    this.loader.startLoader();
     const config ={
       url: urlConstants.API_URLS.LOGIN,
       payload : this.loginForm.value
@@ -96,6 +96,9 @@ export class LoginPage implements OnInit {
     this.apiService.guestUser(config).subscribe(resp=>{
       console.log('resp', resp);
     this.setUser(resp.data);
+    this.loader.stopLoader();
+    },error=>{
+    this.loader.stopLoader();
     })
   }
 async goToSignup() {

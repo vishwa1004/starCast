@@ -1,0 +1,27 @@
+.add-post-box{
+    border: 1px dotted #ccc;
+    font-size: 12px;
+    height: 70px;
+    width: 100%;
+    text-align: center;
+    background: #ccc;
+    margin: 5px 0px;
+    ion-icon{
+        font-size: 20px;
+    }
+}
+.images{
+    height: 70px;
+    width: 100%;
+    object-fit: cover;
+}
+.close-icon{
+    font-size: 18px;
+    margin: 5px;
+    color: black;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: #fdfdfd8c;
+    border-radius: 50%;
+  }

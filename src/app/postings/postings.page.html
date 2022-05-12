@@ -1,9 +1,34 @@
 <ion-header>
-  <app-header title="LABELS.POSTINGS" [showMenu]="true" [showReload]="false" [showSearch]="false">
+  <app-header title="LABELS.MY_POSTINGS" [showMenu]="true">
     <ion-back-button></ion-back-button>
   </app-header>
 </ion-header>
 
 <ion-content>
-
+  <div style="text-align: center;" *ngIf="!posts?.length">
+  <ion-button (click)="createPosts()" style="margin-top:4em;" >
+    Create posts
+  </ion-button>
+  </div>
+  <ion-row>
+    <ion-col size="6" *ngFor="let post of posts">
+        <app-post-card [post]="post"  (actionEvent)="actions($event)"></app-post-card>
+      </ion-col>
+  </ion-row>
+  <div *ngIf="posts?.length">
+    <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" style="margin-bottom: 64px;
+    margin-top: 15em;
+    position: fixed;
+    z-index: 99999;">
+      <ion-fab-button (click)="createPosts()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="posts?.length">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="!posts?.length" style="text-align: center; padding: 30px;">
+    No posts available
+    </div>
 </ion-content>

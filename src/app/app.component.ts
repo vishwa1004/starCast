@@ -3,7 +3,8 @@ import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { CurrentUserService } from './core/services/current-user/current-user.service';
-
+import { ApiService } from './core/services/api/api.service';
+import { NetworkService } from './core';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,17 +15,20 @@ export class AppComponent {
     private translate :TranslateService,
     private platform : Platform,
     private router : Router,
-    private currentUser :CurrentUserService
+    private currentUser :CurrentUserService,
+    private api :ApiService,
+    private netwrok : NetworkService
   ) {
     translate.setDefaultLang('en');
     translate.use('en');
-    console.log("appcompnent", translate.getDefaultLang());
     this.initializeApp();
   }
   initializeApp() {
     this.platform.ready().then(() => {
+      this.netwrok.netWorkCheck();
       this.currentUser.getUser().then(success => {
         if (success) {
+          this.api.setHeaders();
           this.router.navigate(['/menu/tabs/home']);
         }else{
           this.router.navigate(['/login']);

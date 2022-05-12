@@ -16,7 +16,6 @@ export class LoaderService {
     let msg;
     if (message) {
       this.translate.get(message).subscribe((text: string) => {
-        console.log(text, "translate");
         msg = text;
       })
     }

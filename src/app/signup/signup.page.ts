@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { urlConstants } from '../core';
+import { LoaderService, urlConstants } from '../core';
 import { ApiService } from '../core/services/api/api.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class SignupPage implements OnInit {
     label: 'LABELS.NAME',
     required: true,
     name: 'name',
+    pattern: /^[a-zA-Z\s]*$/,
     value: '',
     patternError:'LABELS.NAME_VALIDATION',
     requiredError:'LABELS.NAME_REQUIRED',
@@ -27,8 +28,9 @@ export class SignupPage implements OnInit {
     label: 'LABELS.MOBILE_NUMBER',
     required: true,
     name: 'mobile_number',
-    pattern: /^[0-9]{10}/,
+    pattern: /^((\\+[0-9]{0,2}-?)|0)?[0-9]{10}$/,
     value: '',
+    maxLength:10,
     patternError:'LABELS.MOBILE_NUMBER_VALIDATION',
     requiredError:'LABELS.MOBILE_NUMBER_REQUIRED',
     icons: [
@@ -39,7 +41,7 @@ export class SignupPage implements OnInit {
     required: true,
     name: 'email',
     value: '',
-    pattern:/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
+    pattern: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
     patternError:'LABELS.EMAIL_VALIDATION',
     requiredError:'LABELS.EMAIL_REQUIRED',
     icons: []
@@ -56,7 +58,8 @@ export class SignupPage implements OnInit {
   constructor(
     private translate: TranslateService,
     private apiService: ApiService,
-    private modal: ModalController
+    private modal: ModalController,
+    private loader : LoaderService
   ) {
     translate.setDefaultLang('en');
     translate.use('en');
@@ -67,13 +70,10 @@ export class SignupPage implements OnInit {
   }
 
   checkPattern(field) {
-    if (field.value && field.pattern) {
-      let result = field.pattern.test(field.value);
+    console.log(field.pattern,"field",this.signupForm.value[field.name]);
+    if (this.signupForm.value[field.name] && field.pattern) {
+      let result = field.pattern.test(this.signupForm.value[field.name]);
       field.patternMatch = result;
-      if (result && field.name == 'mobilenumber') {
-        // this.showOtpInput = true;
-        // this.registeredMObileNumber = field.value;
-      }
     } else {
       // this.showOtpInput = false;
       field.patternMatch = false;
@@ -101,14 +101,20 @@ export class SignupPage implements OnInit {
     );
   }
   signup() {
-    console.log(this.signupForm.value, "this.signupForm.value");
+    this.loader.startLoader();
     const config = {
       url: urlConstants.API_URLS.REGISTER,
       payload: this.signupForm.value
     }
     this.apiService.guestUser(config).subscribe(resp => {
       console.log('resp', resp);
-      this.modal.dismiss(resp);
+      if(resp.data){
+        this.modal.dismiss(resp);
+      }
+    this.loader.stopLoader();
+     
+    },error =>{
+    this.loader.stopLoader();
     })
   }
   close() {

@@ -1,0 +1,52 @@
+
+<ion-toolbar  style="--ion-background-color: var(--tab-color); color:#fff;">
+  <ion-icon name="arrow-back-outline" slot="start" style="    font-size: 24px;
+  padding-left: 15px;" (click)="back()"></ion-icon>
+</ion-toolbar>
+
+
+<ion-content>
+<div *ngIf="post" class="ion-padding post">
+  <div style="position: relative;">
+    <div class="like-action">
+      <ion-icon name="heart-outline"*ngIf="!post?.liked_by" (click)="$event.stopPropagation();  updateLike(post)"></ion-icon> <ion-icon name="heart" *ngIf="post?.liked_by" style="color:var(--ion-color-primary)" (click)="$event.stopPropagation(); updateLike(post)"></ion-icon> <small> {{post?.actions?.likes}}</small>
+      </div> 
+      <div *ngIf="post?.images?.length">
+      <img (click)="$event.stopPropagation(); openImage(post.images[0].url)" class="img" src="{{post.images[0].url}}" *ngIf="post.images.length < 2 && post.images[0].url">
+      <div  *ngIf="post.images && post.images.length > 1">
+          <ion-slides [options]="sliderConfig" autoplay="500" loop="true" speed="500" pager="true">
+            <ion-slide *ngFor="let image of post.images">
+                <img (click)=" $event.stopPropagation();  openImage(image.url)" class="img" src="{{image.url}}" *ngIf="image.url">
+            </ion-slide>
+        </ion-slides>
+    </div>
+  </div>
+  
+  <div *ngIf="!post?.images?.length" style=" background: #ccc;">
+    <img class="img" src="../../../../assets/images/posts/product.png">
+  </div>
+  
+  </div>
+<h5 *ngIf="post?.userName" ><span   *ngIf="post?.userImage"> <img src="{{post?.userImage?.url}}" class="userProfile"></span> <div class="userName"><b>{{post?.userName | titlecase}} </b> </div></h5>
+<div class="labels">
+  {{post?.type?.value}} <ion-icon name="ellipse" class="icon-alignment" *ngIf="post?.sub_type?.value" class="icon-alignment"></ion-icon> {{post?.sub_type?.value}} 
+   </div>
+   <div class="desc">{{post?.description | titlecase}} </div>
+   <div class="desc" *ngIf="post?.contact_number">Contact number : {{post?.contact_number}} </div>
+   <div class="desc" style="min-height:20px" *ngIf="!post?.contact_number"> </div>
+   <div class="desc" style="min-height:20px" *ngIf="!post?.description"></div>
+   <div>
+       <div class="createdAt">{{ momentInstance(post?.createdAt).fromNow(true) }} ago</div>
+   </div>
+</div>
+</ion-content>
+<!-- <ion-footer class="comment-box">
+  <ion-item>
+    <ion-thumblain>
+      <img *ngIf="post?.userProfile" src="{{post.userProfile}}" class="userProfile">
+      <img *ngIf="!post?.userProfile"  src="../../../../assets/images/profile.jpeg" class="userProfile">
+    </ion-thumblain>
+    <ion-textarea name="newComment" [(ngModel)]="newComment"> </ion-textarea>
+    <small (click)="postComment()">Post </small>
+    </ion-item>
+  </ion-footer> -->

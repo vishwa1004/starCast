@@ -1,14 +1,18 @@
 <ion-header>
-  <app-header title="LABELS.PROFILE" [showMenu]="true" [showEdit]="true" (onAction)="profileAction($event)">
+  <app-header title="LABELS.PROFILE" [showMenu]="true" [showEdit]="!noProfile ? true : false" (onAction)="profileAction($event)">
     <ion-back-button></ion-back-button>
   </app-header>
 </ion-header>
 <ion-content>
+  <div *ngIf="!noProfile && profile">
   <div class="profile-img">
     <div>
-      <img src="assets/images/profile.jpeg">
+      <img *ngIf="profile?.profile_photo?.url" src="{{profile.profile_photo.url}}">
+      <img *ngIf="!profile?.profile_photo?.url" src="{{image}}">
     </div>
+    <div class="space-btwn"> </div>
     <div class="background-dots">
+     <div style="padding-left: 4em;"></div>
     </div>
   </div>
   <div class="profile-name-card">
@@ -21,9 +25,9 @@
     <ion-segment-button value="portfolio">
       <ion-label>Portfolio</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="auditions">
+    <!-- <ion-segment-button value="auditions">
       <ion-label>Auditions</ion-label>
-    </ion-segment-button>
+    </ion-segment-button> -->
   </ion-segment>
   <div *ngIf="type == 'about'">
     <div class="display-flex-content">
@@ -33,18 +37,35 @@
         </div>
       </div>
       <div>
-        <div class="padding-top" *ngFor="let label of profileMetaData.about">
+        <div class="padding-top"  style="padding-left: 20px; word-break: break-all;" *ngFor="let label of profileMetaData.about">
           {{profile[label.key]}}
         </div>
       </div>
     </div>
   </div>
   <div *ngIf="type == 'portfolio'" class="portfolio-section">
-    <ion-button (click)="upload()">
-      Upload portfolio
-      </ion-button>
+    <div *ngIf="portfolio?.length">
+      <app-attachment-card [data]="portfolio" (deleteAttachment)="deleteImage($event)"></app-attachment-card>
+      </div>
+      <ion-button (click)="upload()" style="margin-top:15px;">
+        Upload portfolio
+        </ion-button>
+    <!-- <div class="flex_spc_btn">
+     
+      <ion-button (click)="updateImage()" style="margin-top:15px;">
+         Update
+          </ion-button>
+      </div> -->
+
+      
   </div>
   <div *ngIf="type == 'auditions'">
+    <div style="text-align: center; margin-top: 30%;">
+      <h4>No data found</h4>
+    </div>
+  </div>
+  </div>
+  <div *ngIf="noProfile">
     <div style="text-align: center; margin-top: 30%;">
       <h4>No data found</h4>
     </div>

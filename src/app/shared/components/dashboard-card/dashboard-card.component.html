@@ -1,0 +1,12 @@
+<ion-card *ngFor="let action of data" (click)="navigate(action)">
+  <ion-row>
+    <ion-col size="3" class="count">
+      {{action.count}} </ion-col>
+    <ion-col size="8" class="labels">
+    {{action.title}}
+    </ion-col>
+    <ion-col size="1" class="icon-align">
+      <ion-icon name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-card>

@@ -1,0 +1,14 @@
+<div>
+    <ion-row>
+    <ion-col size="6">
+      <ion-card (click)="selectImage()">
+        Add image
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" *ngIf="post?.images.length">
+        <ion-card *ngFor="let image of post?.images">
+         <img src="{{image}}">
+          </ion-card>
+        </ion-col>
+    </ion-row>
+  </div>

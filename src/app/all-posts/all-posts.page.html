@@ -1,0 +1,9 @@
+<ion-header>
+  <app-header title="LABELS.POSTS" [showMenu]="false">
+    <ion-back-button></ion-back-button>
+  </app-header>
+</ion-header>
+
+<ion-content>
+<app-post-card [post]="post" *ngFor="let post of posts" (actionEvent)="actions($event)"></app-post-card>
+</ion-content>

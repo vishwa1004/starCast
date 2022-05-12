@@ -11,12 +11,7 @@ export class FilterPipe implements PipeTransform {
         }
         searchText = searchText.trim();
         searchText = searchText.toLowerCase();
-        console.log(searchText, "searchText");
-        console.log(items, "item")
         return items.filter(it => {
-            console.log(it,"it");
-            console.log( it.vendorname.toLowerCase()," it.vendorname.toLowerCase()");
-            console.log(searchText,"searchText")
            return it.vendorname.toLowerCase().includes(searchText);
         });
     }

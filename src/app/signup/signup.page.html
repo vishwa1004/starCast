@@ -23,12 +23,12 @@
             *ngIf="(field?.required && signupForm.controls[field.name].touched  && signupForm.controls[field.name].errors?.required) ||(field.required && submitAttempt && !field.value) ">
             {{field?.requiredError | translate}}
           </span>
-          <span *ngIf="field.value && field.pattern && !field.patternMatch" class="required-field">
+          <span *ngIf="signupForm.value[field.name] && field.pattern && !field.patternMatch" class="required-field">
             {{field?.patternError | translate}}
           </span>
         </ng-container>
       </div>
-      <ion-button (click)="signup()" expand="block" class="btn-height">
+      <ion-button (click)="signup()" expand="block" class="btn-height" [disabled]="!signupForm.valid">
         {{"LABELS.SIGNUP" | translate}}
         </ion-button>
     </form>

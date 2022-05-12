@@ -3,6 +3,11 @@
     <ion-icon name="arrow-back"></ion-icon>
   </ion-buttons>
 </ion-toolbar>
+<ion-content>
 <div *ngIf="fields">
-  <app-generic-form [fields]="fields" (eventEmitter)="eventAction($event)"></app-generic-form>
-  </div>
+  <app-generic-form [fields]="fields" [data]="profile" [btn]="'update'" ></app-generic-form>
+</div>
+<ion-footer>
+  <ion-button (click)="eventAction()" expand="block">Update </ion-button>
+</ion-footer>
+</ion-content>

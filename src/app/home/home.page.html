@@ -3,8 +3,39 @@
     <ion-back-button></ion-back-button>
   </app-header>
 </ion-header>
-
 <ion-content>
-
-  <ion-button (click)="go()"> go </ion-button>
+  <!-- <app-dashboard-card [data]="data"></app-dashboard-card> -->
+  <div class="dsp-flex">
+    <div class="w-49">
+      <ion-item class="input-boxes">
+        <ion-label position="floating" >Types
+        </ion-label>
+          <ion-select
+         [(ngModel)]="type" (ionChange)="applyFilters()">
+          <ion-select-option [value]="option.id" *ngFor="let option of types">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="w-49">
+      <ion-item class="input-boxes">
+        <ion-label position="floating" >Sub Types
+        </ion-label>
+          <ion-select
+         [(ngModel)]="subType" (ionChange)="applyFilters()">
+          <ion-select-option [value]="option.id" *ngFor="let option of subTypes">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+  <ion-row>
+    <ion-col size="6" *ngFor="let post of posts">
+        <app-post-card [post]="post"  (actionEvent)="actions($event)"></app-post-card>
+      </ion-col>
+  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="posts?.length">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="!posts?.length" style="text-align: center; padding: 30px;">
+    No posts available
+    </div>
 </ion-content>

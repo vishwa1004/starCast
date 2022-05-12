@@ -1,0 +1,24 @@
+<ion-header>
+  <app-header title="LABELS.TYPES_SELECTION" [showMenu]="false">
+    <ion-back-button></ion-back-button>
+  </app-header>
+</ion-header>
+
+<ion-content>
+<div *ngIf="types?.length" style="text-align: center;">
+  <ion-row>
+  <ion-col size="6" *ngFor="let type of types" style="border: 0.5px solid #ccc;" (click)="like(type)">
+    <ion-icon name="checkmark-circle" color="primary" class="overlay-icon" *ngIf="type.isCheck"></ion-icon>
+    <div  class="types-box">
+  <div>  <ion-icon name="albums-outline"></ion-icon> </div>
+    {{type?.value}}
+    </div>
+  </ion-col>
+  </ion-row>
+  </div>
+</ion-content>
+<ion-footer *ngIf="types?.length">
+  <ion-button expand="block" (click)="next()" [disabled]="!selectedType.id">
+    Next
+    </ion-button>
+</ion-footer>

@@ -569,6 +569,15 @@ export const height=[
     {label:'3.5'},
     {label:'4'},
     {label:'4.5'},
-    {label:'Olive'},
-    {label:'Light brown'}
+    {label:'5'},
+    {label:'5.5'},
+    {label:'6'},
+    {label:'6.5'},
+    {label:'7'}
 ]
+
+export const regex ={
+    email:/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+    mobile:/^((\\+[0-9]{0,2}-?)|0)?[0-9]{10}$/,
+    name:/^[a-zA-Z\s]*$/
+}

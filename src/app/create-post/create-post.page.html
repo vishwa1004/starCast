@@ -1,0 +1,54 @@
+<ion-header>
+  <app-header title="LABELS.CREATE_POST" [showMenu]="false">
+    <ion-back-button></ion-back-button>
+  </app-header>
+</ion-header>
+<ion-content class="ion-padding" *ngIf="postForm">
+  <form [formGroup]="postForm" novalidate>
+    <div class="form-fields" *ngFor="let field of fields">
+      <ion-item class="input-boxes">
+        <ion-label position="floating" >{{field.label | translate}}
+          <span *ngIf="field.required" class="required-field"> * </span>
+        </ion-label>
+        <ion-icon name="{{icon.name}}" slot="{{icon.slot}}" *ngFor="let icon of field.icons"
+          [ngClass]="{'start-slot':icon.slot=='start', 'patternMatch' : icon.slot == 'end' && field.patternMatch}">
+        </ion-icon>
+        <ion-input type="{{field.type}}" *ngIf="field.type != 'textArea' && field.type != 'select'"  [formControlName]="field.name" pattern={{field.regex}}
+          (ionChange)="checkPattern(field)" value={{field.value}}> </ion-input>
+          <ion-textarea *ngIf="field.type == 'textArea'"  [formControlName]="field.name" pattern={{field.regex}}
+          (ionChange)="checkPattern(field)" value={{field.value}}> </ion-textarea>
+          <ion-select
+          [formControlName]="field.name" *ngIf="field.type == 'select'">
+          <ion-select-option [value]="option" *ngFor="let option of field.options">{{option.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ng-container>
+        <span class="required-field"
+          *ngIf="(field?.required && postForm.controls[field.name].touched  && postForm.controls[field.name].errors?.required) ||(field.required && submitAttempt && !field.value) ">
+          {{field?.requiredError | translate}}
+        </span>
+        <span *ngIf="postForm.value[field.name] && field.pattern && !field.patternMatch" class="required-field">
+          {{field?.patternError | translate}}
+        </span>
+      </ng-container>
+    </div>
+  </form>
+  <ion-row>
+    <ion-col size="3" (click)="upload()" class="add-post-box">
+      <div style="padding: 10px 0px;"> <div> <ion-icon name="add-circle-outline"></ion-icon> </div>
+      {{"LABELS.UPLOAD_PHOTO" | translate}}
+      </div>
+      </ion-col>
+    <ion-col size="3" *ngFor="let img of uploadedImages; let i = index">
+      <!-- <div>
+        <ion-icon class="close-icon" name="close-circle" (click)="deleteConfirmation(i)"></ion-icon>
+      </div> -->
+     <img src="{{img.value}}" class="images" (click)="open(img.value)">
+      </ion-col>
+    </ion-row>
+ </ion-content>
+<ion-footer>
+  <ion-button (click)="submit()" expand="block" class="btn-height" [disabled]="postForm && !postForm.valid">
+    {{"LABELS.SUBMIT" | translate}}
+    </ion-button>
+  </ion-footer>

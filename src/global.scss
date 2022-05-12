@@ -64,3 +64,10 @@ color:var(--btn-color);
   height: 4em;
   text-transform: none;
 }
+.required-field{
+  color:red;
+}
+.flex_spc_btn{
+  display: flex;
+  justify-content: space-between;
+}

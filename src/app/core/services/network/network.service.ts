@@ -19,18 +19,14 @@ export class NetworkService {
   public netWorkCheck() {
     this.getCurrentStatus();
     this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      // alert('network was disconnected :-(');
-
       this.isNetworkAvailable = false;
       this.$networkStatus.next(this.isNetworkAvailable);
       this.toast.displayMessage('You are Offline, Please move to online to access the App feauters','danger');
     });
     this.connectSubscription = this.network.onConnect().subscribe(() => {
-      // alert('network connected!');
       this.isNetworkAvailable = true;
       this.$networkStatus.next(this.isNetworkAvailable);
       this.toast.displayMessage('You are Online','success');
-
     });
   }
 

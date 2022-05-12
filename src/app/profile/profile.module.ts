@@ -9,7 +9,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared';
-
+import { FormBuilder } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +19,7 @@ import { SharedModule } from '../shared';
     IonicModule,
     ProfilePageRoutingModule
   ],
+  providers:[FormBuilder],
   declarations: [ProfilePage]
 })
 export class ProfilePageModule { }

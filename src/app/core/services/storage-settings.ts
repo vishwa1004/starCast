@@ -12,9 +12,7 @@ export class StorageSettingsService {
     this.storage.set(key, data)
       .then(
         resp => {
-          console.log(resp, "set key resp")
         }, error => {
-          console.log(error, "set key error")
         }
       );
   }
@@ -22,9 +20,7 @@ export class StorageSettingsService {
     this.storage.set(key, data)
       .then(
         resp => {
-          console.log(resp, "set key resp")
         }, error => {
-          console.log(error, "set key error")
         }
       );
   }
